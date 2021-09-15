@@ -162,7 +162,6 @@ enrollmentReport.addEventListener('load', function (e) {
       totalWeeks: parseInt(report[recordNum][report[0].indexOf('Student Connection: Total Weeks')]),
       instructor: report[recordNum][report[0].indexOf('Student Connection: Primary Faculty')],
       endDate: report[recordNum][report[0].indexOf('Course End Date')],
-      isYouth: document.getElementById("Youth").checked
     }
     console.log(roll)
     generateRoll(roll)

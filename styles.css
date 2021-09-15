@@ -7,6 +7,8 @@ body {
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 .hidden {
     display: none;
@@ -51,6 +53,8 @@ body {
     padding: .25em;
     background-color: rgb(212, 240, 212);
     margin: .5em;
+    align-self: center;
+    width: 60%;
 }
 #SelectionForm > input{
     margin-bottom: .5em;
