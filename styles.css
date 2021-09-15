@@ -142,11 +142,15 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+#ClassList {
+  max-height: 15em;
+  overflow-y: auto;
+}
 #ClassList > div {
     border: 1px solid black;
     border-top: none;
 }
-#ClassList > div:first {
+#ClassList > div:first-child {
     border-top: 1px solid black;
 }
 #ClassList > div:nth-child(even) {

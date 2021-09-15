@@ -140,7 +140,7 @@ enrollmentReport.addEventListener('load', function (e) {
     }, 250)
   })
   function createRoll(recordNum) {
-    var students = report.filter(record => record[0] == report[recordNum][0]).map(record => ({
+    var students = report.filter(record => record[indexes[0]] == report[recordNum][indexes[0]] && record[indexes[1]] == report[recordNum][indexes[1]]).map(record => ({
       firstName: record[report[0].indexOf('Contact')].split(' ').slice(0, -1).join(' '),
       lastName: record[report[0].indexOf('Contact')].split(' ').slice(-1).join(' '),
       email: record[report[0].indexOf('Email')],
