@@ -104,12 +104,14 @@ enrollmentReport.addEventListener('load', function (e) {
     if(isDuplicate.length){
       document.getElementById('ClassArbiter').classList = []
       document.getElementById('ClassList').innerHTML = ''
+      console.log(isDuplicate)
       for(var duplicateClass of isDuplicate){
         var box = document.createElement('div')
         box.innerText = report[duplicateClass][indexes[1]]
         document.getElementById('ClassList').append(box)
         box.addEventListener('click', ()=>{
           document.getElementById('ClassArbiter').classList = ['hidden']
+          console.log(duplicateClass)
           createRoll(duplicateClass)
         })
       }
