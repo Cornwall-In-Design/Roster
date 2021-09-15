@@ -1,0 +1,137 @@
+html {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+}
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+.hidden {
+    display: none;
+
+}
+#ClickOverlay {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+.suggestion{
+    position: relative;
+}
+.suggestion > div{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: cornsilk;
+    border: 1px solid darkgray;
+    z-index: 3;
+}
+.suggestion > div > div{
+    padding: .1em;
+    border-bottom: 1px solid darkgray;
+    cursor: pointer;
+}
+.suggestion > div > div:hover{
+    background-color: rgba(0,0,0,.1);
+}
+#EnrollmentReport {
+    margin-bottom: 10px;
+}
+#SelectionForm{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: .5em;
+    padding: .25em;
+    background-color: rgb(212, 240, 212);
+    margin: .5em;
+}
+#SelectionForm > input{
+    margin-bottom: .5em;
+}
+#FormSeparator {
+    font-weight: bold;
+    margin: 1em auto;
+
+}
+.row{
+    display: flex;
+    justify-content: space-between;
+}
+#Roll{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 4;
+    min-height: 100%;
+}
+#rolldept{
+    background-color: rgb(212, 240, 212);
+    text-align: center;
+    font-weight: bold;
+    padding: .25em;
+    font-size: small;
+}
+#rollHeading{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    font-size: small;       
+}
+#rollsecname{
+    font-weight: bold;
+    font-size: x-large;
+    text-align: center;
+}
+#nameBar{
+    background-color: rgb(228, 247, 228);
+    padding: .7em 0;
+    font-size: small;
+    border-bottom: 2px solid black;
+    margin-bottom: 1em;
+    margin-left: 3px;
+}
+#rollattenddates {
+    display: flex;
+}
+#rollattenddates > div {
+    width: 20px;
+    transform: rotate(-60deg);
+    margin: 3px;
+    text-align: center;
+}
+#rollfooter {
+    display: flex;
+    justify-content: space-between;
+}
+#rollstudents > div {
+    height: 20px;
+}
+.rollboxes > div {
+    height: 20px;
+    width: 20px;
+    border: 1px solid gray;
+    margin: 2px;
+}
+#closeroll {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 3px;
+    cursor: pointer;
+}
+#rollList > div {
+    margin-left: 3px;
+}
+@media print {
+    #closeroll{
+        display:none;
+    }
+}
