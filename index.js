@@ -81,9 +81,9 @@ enrollmentReport.addEventListener('load', function (e) {
     var inputName = e.target.elements.CourseName.value
     var inputDate = e.target.elements.CourseStartDate.value ? moment(e.target.elements.CourseStartDate.value).format('M/D/YYYY') : false
     var inputLocation = e.target.elements.CourseLocation.value
-    var foundID
-    var i
-    for (i = 0; i < report.length; i++) {
+    var recordNum
+    var isDuplicate = []
+    for (var i = 0; i < report.length; i++) {
       if (
         (inputID && inputID == report[i][indexes[0]]) ||
         (
@@ -92,44 +92,28 @@ enrollmentReport.addEventListener('load', function (e) {
           (inputLocation && inputLocation.toLowerCase() == report[i][indexes[3]].toLowerCase())
         )
       ) {
-        foundID = report[i][0]
+        if (recordNum !== undefined && report[i][indexes[1]].toLowerCase() != report[recordNum][indexes[1]].toLowerCase()){
+          if(!isDuplicate.length){
+            isDuplicate.push(recordNum)
+          }
+          isDuplicate.push(i)
+        }
+        recordNum = i
         break;
       }
     }
-    console.log(i + 1)
-    var students = report.filter(record => record[0] == foundID).map(record => ({
-      firstName: record[report[0].indexOf('Contact')].split(' ').slice(0, -1).join(' '),
-      lastName: record[report[0].indexOf('Contact')].split(' ').slice(-1).join(' '),
-      email: record[report[0].indexOf('Email')],
-      phone: record[report[0].indexOf('Phone Number')]
-    }))
-    console.log(i)
-    var roll = {
-      sectionId: report[i + 1][indexes[0]],
-      courseName: report[i + 1][indexes[1]],
-      startDate: report[i + 1][indexes[2]],
-      location: report[i + 1][indexes[3]],
-      weekdays: report[i + 1][report[0].indexOf('Student Connection: Class days')].split(',').filter(Boolean).map(a => a.trim()),
-      time: report[i + 1][report[0].indexOf('Student Connection: Time Block')],
-      students: students.sort(mySort),
-      department: report[i + 1][report[0].indexOf('Department')],
-      // sessions: report[i][report[0].indexOf('Student Connection: Total Sessions')],
-      // sessionsPerWeek: report[i][report[0].indexOf('Student Connection: Sessions per Week')],
-      enrollment: students.length,
-      totalWeeks: parseInt(report[i + 1][report[0].indexOf('Student Connection: Total Weeks')]),
-      instructor: report[i + 1][report[0].indexOf('Student Connection: Primary Faculty')],
-      endDate: report[i + 1][report[0].indexOf('Course End Date')],
-      isYouth: document.getElementById("Youth").checked
-    }
-    console.log(roll)
-    generateRoll(roll)
-    function mySort(a, b) {
-      var firstA = a.firstName.toLowerCase()
-      var firstB = b.firstName.toLowerCase()
-      var lastA = a.lastName.toLowerCase()
-      var lastB = b.lastName.toLowerCase()
-      return lastA < lastB ? -1 : lastA > lastB ? 1 : firstA < firstB ? -1 : firstA > firstB ? 1 : 0
-
+    if(isDuplicate.length){
+      document.getElementById('ClassArbiter').classList = []
+      for(var duplicateClass of isDuplicate){
+        var box = document.createElement('div')
+        box.innerText = report[duplicateClass][indexes[1]]
+        document.getElementById('ClassList').append(box)
+        box.addEventListener('click', ()=>{
+          createRoll(duplicateClass)
+        })
+      }
+    }else{
+      createRoll(recordNum)
     }
   })
   document.getElementById('CourseLocation').addEventListener('input', function (e) {
@@ -154,37 +138,43 @@ enrollmentReport.addEventListener('load', function (e) {
       }
     }, 250)
   })
+  function createRoll(recordNum) {
+    var students = report.filter(record => record[0] == report[recordNum][0]).map(record => ({
+      firstName: record[report[0].indexOf('Contact')].split(' ').slice(0, -1).join(' '),
+      lastName: record[report[0].indexOf('Contact')].split(' ').slice(-1).join(' '),
+      email: record[report[0].indexOf('Email')],
+      phone: record[report[0].indexOf('Phone Number')]
+    }))
+    var roll = {
+      sectionId: report[recordNum][indexes[0]],
+      courseName: report[recordNum][indexes[1]],
+      startDate: report[recordNum][indexes[2]],
+      location: report[recordNum][indexes[3]],
+      weekdays: report[recordNum][report[0].indexOf('Student Connection: Class days')].split(',').filter(Boolean).map(a => a.trim()),
+      time: report[recordNum][report[0].indexOf('Student Connection: Time Block')],
+      students: students.sort(mySort),
+      department: report[recordNum][report[0].indexOf('Department')],
+      // sessions: report[recordNum][report[0].indexOf('Student Connection: Total Sessions')],
+      // sessionsPerWeek: report[recordNum][report[0].indexOf('Student Connection: Sessions per Week')],
+      enrollment: students.length,
+      totalWeeks: parseInt(report[recordNum][report[0].indexOf('Student Connection: Total Weeks')]),
+      instructor: report[recordNum][report[0].indexOf('Student Connection: Primary Faculty')],
+      endDate: report[recordNum][report[0].indexOf('Course End Date')],
+      isYouth: document.getElementById("Youth").checked
+    }
+    console.log(roll)
+    generateRoll(roll)
+    function mySort(a, b) {
+      var firstA = a.firstName.toLowerCase()
+      var firstB = b.firstName.toLowerCase()
+      var lastA = a.lastName.toLowerCase()
+      var lastB = b.lastName.toLowerCase()
+      return lastA < lastB ? -1 : lastA > lastB ? 1 : firstA < firstB ? -1 : firstA > firstB ? 1 : 0
+  
+    }
+  }
 })
-// generateRoll({
-//     sectionId: 'blah',
-//     courseName: 'Boo!',
-//     startDate: '1/1/1111',
-//     location: 'Moon',
-//     weekdays: ['Su', 'Mo'],
-//     time: 'pizza-pineapple',
-//     students: [
-//         {
-//             firstName:'Carol Watsen MA',
-//             lastName:'BS',
-//             phone:'',
-//             email:'NO'
-//         },
-//         {
-//             firstName: 'Harry James',
-//             lastName: 'Potter',
-//             email: 'Hedwig',
-//             phone: 'wand 8.5'
-//         }
-//     ],
-//     department: 'Kookie fanclub',
-//     // sessions: report[i][report[0].indexOf('Student Connection: Total Sessions')],
-//     // sessionsPerWeek: report[i][report[0].indexOf('Student Connection: Sessions per Week')],
-//     enrollment: 1,
-//     totalWeeks: 3,
-//     instructor: 'Darth Vader',
-//     endDate: '2/2/2222',
-//     isYouth: true
-// })
+
 function generateRoll(courseInfo) {
   document.getElementById('Roll').style.display = 'block'
   document.getElementById("rolldept").innerHTML = courseInfo.department

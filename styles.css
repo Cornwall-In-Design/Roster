@@ -9,7 +9,6 @@ body {
 }
 .hidden {
     display: none;
-
 }
 #ClickOverlay {
     width: 100vw;
@@ -130,6 +129,33 @@ body {
 #rollList > div {
     margin-left: 3px;
 }
+#ClassArbiter {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 2em;
+    border-radius: 20px;
+    border: 1px solid black;
+    background-color: rgb(241, 241, 241);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#ClassList > div {
+    border: 1px solid black;
+    border-top: none;
+}
+#ClassList > div:first {
+    border-top: 1px solid black;
+}
+#ClassList > div:nth-child(even) {
+    background-color: white;
+}
+#ClassList > div:hover{
+    background-color: rgba(0,0,0,.1);
+}
+
 @media print {
     #closeroll{
         display:none;
