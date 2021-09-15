@@ -129,7 +129,7 @@ body {
 #rollList > div {
     margin-left: 3px;
 }
-#ClassArbiter {
+#ClassArbiter:not(.hidden) {
     display: flex;
     flex-direction: column;
     align-items: stretch;
