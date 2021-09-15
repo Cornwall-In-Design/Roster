@@ -99,16 +99,17 @@ enrollmentReport.addEventListener('load', function (e) {
           isDuplicate.push(i)
         }
         recordNum = i
-        break;
       }
     }
     if(isDuplicate.length){
       document.getElementById('ClassArbiter').classList = []
+      document.getElementById('ClassList').innerHTML = ''
       for(var duplicateClass of isDuplicate){
         var box = document.createElement('div')
         box.innerText = report[duplicateClass][indexes[1]]
         document.getElementById('ClassList').append(box)
         box.addEventListener('click', ()=>{
+          document.getElementById('ClassArbiter').classList = ['hidden']
           createRoll(duplicateClass)
         })
       }
