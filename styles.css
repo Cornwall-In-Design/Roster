@@ -129,6 +129,21 @@ body {
     top: 0;
     right: 0;
     margin-right: 3px;
+    display: flex;
+    align-items: center;
+    margin-top: 3px;
+}
+#PrintBtn {
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 3px 5px;
+    border-radius: .3em;
+    background-color: white;
+    margin-right: 10px;
+}
+#CloseBtn {
+    font-size: 1.5em;
+    font-family: arial;
     cursor: pointer;
 }
 #rollList > div {
@@ -167,6 +182,6 @@ body {
 
 @media print {
     #closeroll{
-        display:none;
+        display: none;
     }
 }
